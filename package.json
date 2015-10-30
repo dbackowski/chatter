@@ -1,0 +1,18 @@
+{
+  "name": "node_chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bookshelf": "^0.8.2",
+    "express": "^4.13.3",
+    "knex": "^0.8.6",
+    "pg": "^4.4.3",
+    "socket.io": "^1.3.7"
+  }
+}
