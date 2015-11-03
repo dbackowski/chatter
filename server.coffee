@@ -4,6 +4,7 @@ http = require('http').Server(app)
 io = require('socket.io')(http)
 path = require('path')
 bookshelf = require('./bookshelf')
+bodyParser = require('body-parser')
 
 User = bookshelf.Model.extend({
   tableName: 'users'
@@ -17,16 +18,21 @@ Message = bookshelf.Model.extend({
 })
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json())
+
+app.get('/messages', (req, res) ->
+  new Message().query('orderBy', 'created_at', 'asc').fetchAll({ withRelated: ['user'] }).then((messages) ->
+    console.log messages.toJSON()
+    res.send(messages.toJSON())
+  ).catch((err) ->
+    console.error err
+    res.send({ error: err })
+  )
+)
 
 io.on 'connection', (socket) ->
   socket.on 'connected', (data) ->
     console.log data
-    new Message().query('orderBy', 'created_at', 'asc').fetchAll({ withRelated: ['user'] }).then((messages) ->
-      console.log messages.toJSON()
-      io.emit('history', messages.toJSON())
-    ).catch((err) ->
-      console.error err
-    )
 
   socket.on 'message', (data) ->
     console.log data
@@ -37,7 +43,6 @@ io.on 'connection', (socket) ->
     })
     .save()
     .then((message) ->
-
       new Message().where('id', message.id).fetch({ withRelated: ['user'] }).then((message) ->
         console.log message.toJSON()
         console.log message.related('user').toJSON()['login']
