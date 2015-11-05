@@ -17,7 +17,7 @@ Message = bookshelf.Model.extend({
     this.belongsTo(User, 'user_id')
 })
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 
 app.get('/messages', (req, res) ->
