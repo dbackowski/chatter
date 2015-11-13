@@ -53,6 +53,17 @@ $(document).ready(function() {
       this.setState({ messages: messages });
     },
 
+    render: function() {
+      return (
+        <div className='chatApp'>
+          <MessagesList messages={this.state.messages}/>
+          <MessageForm />
+        </div>
+      )
+    }
+  });
+
+  var MessageForm = React.createClass({
     messageSend: function(e) {
       console.log(e.keyCode);
       if (e.keyCode === 13) {
@@ -65,13 +76,20 @@ $(document).ready(function() {
 
     render: function() {
       return (
+        <textarea className="form-control" id="input" rows="1" onKeyDown={this.messageSend}></textarea>
+      )
+    }
+  });
+
+  var MessagesList = React.createClass({
+    render: function() {
+      return (
         <div>
           <div className="well" id="content">
-            {this.state.messages.map(function(msg) {
+            {this.props.messages.map(function(msg) {
               return <Message key={msg['id']} message={msg}></Message>
             })}
           </div>
-          <textarea className="form-control" id="input" rows="1" onKeyDown={this.messageSend}></textarea>
         </div>
       );
     }
