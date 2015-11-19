@@ -32,19 +32,6 @@ $(document).ready(function() {
       $('#content').html('Wystąpił błąd, nie można pobrać danych.');
     },
 
-    setCaretPosition: function (ctrl, pos) {
-      if(ctrl.setSelectionRange) {
-        ctrl.focus();
-        ctrl.setSelectionRange(pos,pos);
-      } else if (ctrl.createTextRange) {
-        var range = ctrl.createTextRange();
-        range.collapse(true);
-        range.moveEnd('character', pos);
-        range.moveStart('character', pos);
-        range.select();
-      }
-    },
-
     messageReceive: function(msg) {
       console.log('dostalem wiadomosc: ' + msg);
       var messages = this.state.messages;
@@ -64,11 +51,24 @@ $(document).ready(function() {
   });
 
   var MessageForm = React.createClass({
+    setCaretPosition: function (ctrl, pos) {
+      if(ctrl.setSelectionRange) {
+        ctrl.focus();
+        ctrl.setSelectionRange(pos,pos);
+      } else if (ctrl.createTextRange) {
+        var range = ctrl.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', pos);
+        range.moveStart('character', pos);
+        range.select();
+      }
+    },
+
     messageSend: function(e) {
       console.log(e.keyCode);
       if (e.keyCode === 13) {
         e.preventDefault();
-        socket.emit('message', { message: e.target.value, user_id: 1 });
+        socket.emit('message', { message: e.target.value });
         e.target.value = '';
         this.setCaretPosition(e.target, 0);
       }

@@ -1,4 +1,10 @@
 express = require('express')
+session = require('express-session')({
+  secret: '1234567'
+  saveUninitialized: false
+  resave: false
+})
+sharedsession = require('express-socket.io-session')
 app = express()
 http = require('http').Server(app)
 io = require('socket.io')(http)
@@ -17,12 +23,38 @@ Message = bookshelf.Model.extend({
     this.belongsTo(User, 'user_id')
 })
 
+app.use(session)
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+io.use(sharedsession(session))
+
+app.get '/', (req, res) ->
+  if req.session.user_id
+    res.sendFile(path.join(__dirname, 'views/index.html'))
+  else
+    res.redirect '/login'
+
+app.get '/login', (req, res) ->
+  res.sendFile(path.join(__dirname, 'views/login.html'))
+
+app.post '/login', (req, res) ->
+  console.log req.body.login
+
+  new User().where('login', req.body.login).fetch().then((user) =>
+    console.log 'User: ' + user
+    if user
+      req.session.user_id = user.id
+      res.redirect '/'
+    else
+      res.redirect '/login'
+  ).catch((err) ->
+    console.error err
+  )
 
 app.get('/messages', (req, res) ->
   new Message().query('orderBy', 'created_at', 'asc').fetchAll({ withRelated: ['user'] }).then((messages) ->
-    console.log messages.toJSON()
+    #console.log messages.toJSON()
     res.send(messages.toJSON())
   ).catch((err) ->
     console.error err
@@ -30,16 +62,20 @@ app.get('/messages', (req, res) ->
   )
 )
 
-io.on 'connection', (socket) ->
-  socket.on 'connected', (data) ->
-    console.log data
+io.use (socket, next) ->
+  if socket.handshake.session.user_id
+    next()
+  else
+    next(new Error('Authentication error'))
 
+io.on 'connection', (socket) ->
   socket.on 'message', (data) ->
     console.log data
+    console.log socket.handshake.session.user_id
 
     Message.forge({
       body: data['message'],
-      user_id: data['user_id']
+      user_id: socket.handshake.session.user_id
     })
     .save()
     .then((message) ->
