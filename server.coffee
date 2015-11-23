@@ -11,6 +11,7 @@ io = require('socket.io')(http)
 path = require('path')
 bookshelf = require('./bookshelf')
 bodyParser = require('body-parser')
+bcrypt = require('bcrypt-nodejs')
 
 User = bookshelf.Model.extend({
   tableName: 'users'
@@ -42,9 +43,8 @@ app.post '/login', (req, res) ->
   console.log req.body.login
 
   new User().where('login', req.body.login).fetch().then((user) =>
-    console.log 'User: ' + user
-    if user
-      req.session.user_id = user.id
+    if user && bcrypt.compareSync(req.body.password, user.get('password'))
+      req.session.user_id = user.get('id')
       res.redirect '/'
     else
       res.redirect '/login'
@@ -54,7 +54,6 @@ app.post '/login', (req, res) ->
 
 app.get('/messages', (req, res) ->
   new Message().query('orderBy', 'created_at', 'asc').fetchAll({ withRelated: ['user'] }).then((messages) ->
-    #console.log messages.toJSON()
     res.send(messages.toJSON())
   ).catch((err) ->
     console.error err
