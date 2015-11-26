@@ -1,8 +1,8 @@
 {
-  "name": "node_chat",
+  "name": "chatter",
   "version": "1.0.0",
   "description": "Very simple chat (NodeJS + PostgreSQL + Socket.io + React)",
-  "main": "index.js",
+  "main": "server.coffee",
   "scripts": {
     "start": "coffee server.coffee",
     "test": "echo \"Error: no test specified\" && exit 1"
