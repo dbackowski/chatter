@@ -98,7 +98,7 @@ $(document).ready(function() {
   var Message = React.createClass({
     formatMessage: function() {
       var body = this.props.message['body'].replace(new RegExp('\ ','g'), '&nbsp;').replace(new RegExp('\r?\n','g'), '<br />');
-      return `${this.props.message['user']['login']}: ${body}`;
+      return `<b>${this.props.message['user']['login']}</b>&nbsp;${moment(this.props.message['created_at']).format("YYYY-MM-DD HH:mm:ss")}:<br />${body}`;
     },
 
     render: function() {
