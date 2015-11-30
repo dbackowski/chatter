@@ -45,9 +45,16 @@ app.post '/login', (req, res) ->
   new User().where('login', req.body.login).fetch().then((user) =>
     if user && bcrypt.compareSync(req.body.password, user.get('password'))
       req.session.user_id = user.get('id')
-      res.redirect '/'
+      #res.redirect '/'
+      res.send({ error: null })
     else
-      res.redirect '/login'
+      #res.redirect '/login'
+      if !user
+        error = 'Invalid login.'
+      else
+        error = 'Invalid password.'
+
+      res.send({ error: error })
   ).catch((err) ->
     console.error err
   )
