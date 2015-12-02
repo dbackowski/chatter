@@ -58,18 +58,16 @@ $(document).ready(function() {
 
     render: function() {
       return (
-        <form onSubmit={this.onSubmit}>
+        <form className="form-signin" onSubmit={this.onSubmit}>
           { this.state.error ? <ErrorMessage message={this.state.error} /> : null }
 
           <div className="form-group">
-            <label htmlFor="login">Login</label>
-            <input type="text" name="login" className="form-control" onChange={this.updateLogin} placeholder="Login" />
+            <input type="text" name="login" autoFocus className="form-control" onChange={this.updateLogin} placeholder="Login" />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
             <input type="password" name="password" className="form-control" onChange={this.updatePassword} placeholder="Password" />
           </div>
-          <button type="submit" className="btn btn-default" disabled={!this.state.login || !this.state.password}>Login</button>
+          <button type="submit" className="btn btn-primary btn-block" disabled={!this.state.login || !this.state.password}>Login</button>
         </form>
       )
     }
