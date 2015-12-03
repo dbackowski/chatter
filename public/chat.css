@@ -1,0 +1,32 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 40px;
+}
+.container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.messages-list {
+  height: 100%;
+  overflow: scroll;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.message-input {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.message-input textarea {
+  resize: none;
+}
+.messages-list .well {
+  margin-bottom: 0px;
+}

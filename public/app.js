@@ -76,7 +76,9 @@ $(document).ready(function() {
 
     render: function() {
       return (
-        <textarea className="form-control" id="input" rows="1" onKeyDown={this.messageSend}></textarea>
+        <div className="message-input">
+          <textarea className="form-control" id="input" rows="1" autoFocus onKeyDown={this.messageSend}></textarea>
+        </div>
       )
     }
   });
@@ -84,7 +86,7 @@ $(document).ready(function() {
   var MessagesList = React.createClass({
     render: function() {
       return (
-        <div>
+        <div className="messages-list">
           <div className="well" id="content">
             {this.props.messages.map(function(msg) {
               return <Message key={msg['id']} message={msg}></Message>
