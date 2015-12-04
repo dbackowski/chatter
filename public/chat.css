@@ -12,7 +12,7 @@ body {
 }
 .messages-list {
   height: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -29,4 +29,7 @@ body {
 }
 .messages-list .well {
   margin-bottom: 0px;
+}
+.message-body {
+  word-wrap: break-word;
 }

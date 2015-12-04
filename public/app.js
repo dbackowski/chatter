@@ -104,7 +104,7 @@ $(document).ready(function() {
     },
 
     render: function() {
-      return <div dangerouslySetInnerHTML={{ __html: this.formatMessage() }}></div>
+      return <div className="message-body" dangerouslySetInnerHTML={{ __html: this.formatMessage() }}></div>
     }
   });
 
