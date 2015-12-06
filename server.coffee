@@ -26,6 +26,7 @@ Message = bookshelf.Model.extend({
 
 app.use(session)
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 io.use(sharedsession(session))

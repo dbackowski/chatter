@@ -1,0 +1,27 @@
+{
+  "name": "chatter",
+  "description": "Very simple chat (NodeJS + PostgreSQL + Socket.io + React)",
+  "main": "server.coffee",
+  "authors": [
+    "Damian Baćkowski"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/dbackowski/chatter",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.6",
+    "react": "~0.14.3",
+    "babel": "*",
+    "moment": "~2.10.6",
+    "socket.io-client": "~1.3.7"
+  }
+}
