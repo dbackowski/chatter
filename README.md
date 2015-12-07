@@ -6,9 +6,11 @@ Very simple chat (NodeJS + PostgreSQL + Socket.io + React).
 
 Install node modules:
 
-    npm install
     npm install knex -g
+    npm install bower -g
     npm install coffee-script -g
+    npm install
+    bower install
 
 Create PostgreSQL database "chatter":
     
