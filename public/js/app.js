@@ -84,6 +84,11 @@ $(document).ready(function() {
   });
 
   var MessagesList = React.createClass({
+    componentDidUpdate: function() {
+      var node = ReactDOM.findDOMNode(this);
+      node.scrollTop = node.scrollHeight;
+    },
+
     render: function() {
       return (
         <div className="messages-list">
