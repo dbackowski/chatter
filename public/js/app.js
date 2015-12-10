@@ -84,9 +84,16 @@ $(document).ready(function() {
   });
 
   var MessagesList = React.createClass({
+    componentWillUpdate: function() {
+      var node = this.getDOMNode();
+      this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+    },
+
     componentDidUpdate: function() {
-      var node = ReactDOM.findDOMNode(this);
-      node.scrollTop = node.scrollHeight;
+      if (this.shouldScrollBottom) {
+        var node = this.getDOMNode();
+        node.scrollTop = node.scrollHeight
+      }
     },
 
     render: function() {
