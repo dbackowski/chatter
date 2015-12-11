@@ -33,3 +33,7 @@ body {
 .message-body {
   word-wrap: break-word;
 }
+
+div.alert {
+  margin: 20px;
+}

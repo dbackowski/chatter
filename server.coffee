@@ -41,15 +41,11 @@ app.get '/login', (req, res) ->
   res.sendFile(path.join(__dirname, 'views/login.html'))
 
 app.post '/login', (req, res) ->
-  console.log req.body.login
-
   new User().where('login', req.body.login).fetch().then((user) =>
     if user && bcrypt.compareSync(req.body.password, user.get('password'))
       req.session.user_id = user.get('id')
-      #res.redirect '/'
       res.send({ error: null })
     else
-      #res.redirect '/login'
       if !user
         error = 'Invalid login.'
       else
@@ -64,7 +60,6 @@ app.get('/messages', (req, res) ->
   new Message().query('orderBy', 'created_at', 'asc').fetchAll({ withRelated: ['user'] }).then((messages) ->
     res.send(messages.toJSON())
   ).catch((err) ->
-    console.error err
     res.send({ error: err })
   )
 )
@@ -77,9 +72,6 @@ io.use (socket, next) ->
 
 io.on 'connection', (socket) ->
   socket.on 'message', (data) ->
-    console.log data
-    console.log socket.handshake.session.user_id
-
     Message.forge({
       body: data['message'],
       user_id: socket.handshake.session.user_id
@@ -87,24 +79,14 @@ io.on 'connection', (socket) ->
     .save()
     .then((message) ->
       new Message().where('id', message.id).fetch({ withRelated: ['user'] }).then((message) ->
-        console.log message.toJSON()
-        console.log message.related('user').toJSON()['login']
-        #io.emit('history', messages.toJSON())
-
         io.emit('message', message.toJSON())
       ).catch((err) ->
         console.error err
       )
-
-      #res.json({error: false, data: {id: user.get('id')}});
     )
     .catch((err) ->
       console.log(err)
-      #res.status(500).json({error: true, data: {message: err.message}});
     )
-
-  socket.on 'disconnect', () ->
-    console.log 'disconnet'
 
 http.listen 8080, () ->
   console.log 'listening on *:8080'

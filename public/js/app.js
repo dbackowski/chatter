@@ -29,7 +29,7 @@ $(document).ready(function() {
     },
 
     connectionError: function() {
-      $('#content').html('Wystąpił błąd, nie można pobrać danych.');
+      $('#main').html('<p><div class="alert alert-danger">Wystąpił błąd, spróbuj odświeżyć stronę.</div></p>');
     },
 
     messageReceive: function(msg) {
