@@ -33,7 +33,7 @@ io.use(sharedsession(session))
 
 app.get '/', (req, res) ->
   if req.session.user_id
-    res.sendFile(path.join(__dirname, 'views/index.html'))
+    res.sendFile(path.join(__dirname, 'views/chat.html'))
   else
     res.redirect '/login'
 
