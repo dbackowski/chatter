@@ -19,24 +19,21 @@ $(document).ready(function() {
         url: '/messages',
         dataType: 'json',
         success: (data) => {
-          console.log(data);
           this.setState({ messages: data });
         },
         failure: (xhr, status, err) => {
-          console.err(url, status, err.toString());
+          this.connectionError();
         }
       });
     },
 
     connectionError: function() {
-      $('#main').html('<p><div class="alert alert-danger">Wystąpił błąd, spróbuj odświeżyć stronę.</div></p>');
+      $('#main').html('<p><div class="alert alert-danger">An error occured, please refresh the page and try again.</div></p>');
     },
 
     messageReceive: function(msg) {
-      console.log('dostalem wiadomosc: ' + msg);
       var messages = this.state.messages;
       messages.push(msg);
-      //console.log(msg);
       this.setState({ messages: messages });
     },
 
@@ -65,7 +62,6 @@ $(document).ready(function() {
     },
 
     messageSend: function(e) {
-      console.log(e.keyCode);
       if (e.keyCode === 13) {
         e.preventDefault();
         socket.emit('message', { message: e.target.value });

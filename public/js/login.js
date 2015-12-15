@@ -26,13 +26,9 @@ $(document).ready(function() {
 
     onSubmit: function(e) {
       e.preventDefault();
-      console.log('zatwierdzam formularz');
 
       var login = e.target.login.value.trim();
       var password = e.target.password.value.trim();
-
-      console.log(login);
-      console.log(password);
 
       if(!login || !password) {
         return;
@@ -51,7 +47,7 @@ $(document).ready(function() {
           }
         },
         error: (xhr, status, err) => {
-          console.error(this.props.url, status, err.toString());
+          this.setState({ error: 'An error occured, unable to log in.'})
         }
       });
     },
