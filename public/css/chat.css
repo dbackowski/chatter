@@ -2,9 +2,6 @@ html {
   position: relative;
   min-height: 100%;
 }
-body {
-  margin-bottom: 40px;
-}
 .container {
   width: 100%;
   padding: 0;
@@ -28,7 +25,7 @@ body {
   resize: none;
 }
 .messages-list .well {
-  margin-bottom: 0px;
+  margin-bottom: 40px;
 }
 .message-body {
   word-wrap: break-word;

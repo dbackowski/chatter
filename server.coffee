@@ -13,6 +13,8 @@ bookshelf = require('./bookshelf')
 bodyParser = require('body-parser')
 bcrypt = require('bcrypt-nodejs')
 
+users = []
+
 User = bookshelf.Model.extend({
   tableName: 'users'
 })
@@ -32,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 io.use(sharedsession(session))
 
 app.get '/', (req, res) ->
-  if req.session.user_id
+  if req.session.user
     res.sendFile(path.join(__dirname, 'views/chat.html'))
   else
     res.redirect '/login'
@@ -43,7 +45,7 @@ app.get '/login', (req, res) ->
 app.post '/login', (req, res) ->
   new User().where('login', req.body.login).fetch().then((user) =>
     if user && bcrypt.compareSync(req.body.password, user.get('password'))
-      req.session.user_id = user.get('id')
+      req.session.user = { id: user.get('id'), login: user.get('login') }
       res.send({ error: null })
     else
       if !user
@@ -65,16 +67,20 @@ app.get('/messages', (req, res) ->
 )
 
 io.use (socket, next) ->
-  if socket.handshake.session.user_id
+  if socket.handshake.session.user
     next()
   else
     next(new Error('Authentication error'))
 
 io.on 'connection', (socket) ->
+  if users.indexOf(socket.handshake.session.user.login) == -1
+    users.push socket.handshake.session.user.login
+    io.emit('users', users)
+
   socket.on 'message', (data) ->
     Message.forge({
       body: data['message'],
-      user_id: socket.handshake.session.user_id
+      user_id: socket.handshake.session.user.id
     })
     .save()
     .then((message) ->
@@ -87,6 +93,11 @@ io.on 'connection', (socket) ->
     .catch((err) ->
       console.log(err)
     )
+
+  socket.on 'disconnect', ->
+    if users.indexOf(socket.handshake.session.user.login) >= 0
+      users.splice(users.indexOf(socket.handshake.session.user.login), 1)
+      io.emit('users', users)
 
 http.listen 8080, () ->
   console.log 'listening on *:8080'

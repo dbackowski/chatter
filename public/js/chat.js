@@ -9,9 +9,10 @@ $(document).ready(function() {
 
   var ChatApp = React.createClass({
     getInitialState: function() {
+      socket.on('users', this.usersList);
       socket.on('message', this.messageReceive);
       socket.on('connect_error', this.connectionError);
-      return { messages: [] };
+      return { messages: [], users: [] };
     },
 
     componentDidMount: function() {
@@ -31,6 +32,10 @@ $(document).ready(function() {
       $('#main').html('<p><div class="alert alert-danger">An error occured, please refresh the page and try again.</div></p>');
     },
 
+    usersList: function(users) {
+      this.setState({ users: users });
+    },
+
     messageReceive: function(msg) {
       var messages = this.state.messages;
       messages.push(msg);
@@ -40,8 +45,30 @@ $(document).ready(function() {
     render: function() {
       return (
         <div className='chatApp'>
-          <MessagesList messages={this.state.messages}/>
-          <MessageForm />
+          <div className="row">
+            <div className="col-md-1">
+              <UsersList users={this.state.users}/>
+            </div>
+            <div className="col-md-11">
+              <MessagesList messages={this.state.messages}/>
+              <MessageForm />
+            </div>
+          </div>
+        </div>
+      )
+    }
+  });
+
+  var UsersList = React.createClass({
+    render: function() {
+      return (
+        <div>
+          <b>Users:</b>
+          <ul>
+            {this.props.users.map(function(user) {
+              return <li key={user}>{user}</li>;
+            })}
+          </ul>
         </div>
       )
     }
