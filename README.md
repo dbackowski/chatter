@@ -2,7 +2,7 @@
 
 Very simple chat (NodeJS + PostgreSQL + Socket.io + React).
 
-![screenshot](https://imgur.com/adILAZD)
+![screenshot](http://i.imgur.com/oWkkdTv.png)
 
 # Installation
 
