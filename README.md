@@ -2,6 +2,8 @@
 
 Very simple chat (NodeJS + PostgreSQL + Socket.io + React).
 
+![screenshot](https://imgur.com/adILAZD)
+
 # Installation
 
 Install node modules:
