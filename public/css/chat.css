@@ -16,7 +16,7 @@ html {
 .message-input {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 99%;
   height: 40px;
   padding-left: 5px;
   padding-right: 5px;
@@ -30,7 +30,12 @@ html {
 .message-body {
   word-wrap: break-word;
 }
-
 div.alert {
   margin: 20px;
+}
+.col-md-11 {
+  padding: 0px;
+}
+.row {
+  margin: 0px;
 }
