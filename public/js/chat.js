@@ -108,13 +108,13 @@ $(document).ready(function() {
 
   var MessagesList = React.createClass({
     componentWillUpdate: function() {
-      var node = this.getDOMNode();
+      var node = ReactDOM.findDOMNode(this);
       this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
     },
 
     componentDidUpdate: function() {
       if (this.shouldScrollBottom) {
-        var node = this.getDOMNode();
+        var node = ReactDOM.findDOMNode(this);
         node.scrollTop = node.scrollHeight
       }
     },
