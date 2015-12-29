@@ -91,8 +91,12 @@ $(document).ready(function() {
     messageSend: function(e) {
       if (e.keyCode === 13) {
         e.preventDefault();
-        socket.emit('message', { message: e.target.value });
-        e.target.value = '';
+
+        if (e.target.value) {
+          socket.emit('message', { message: e.target.value });
+          e.target.value = '';
+        }
+
         this.setCaretPosition(e.target, 0);
       }
     },
@@ -122,7 +126,7 @@ $(document).ready(function() {
     render: function() {
       return (
         <div className="messages-list">
-          <div className="well" id="content">
+          <div id="content">
             {this.props.messages.map(function(msg) {
               return <Message key={msg['id']} message={msg}></Message>
             })}
