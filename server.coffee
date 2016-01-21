@@ -12,6 +12,7 @@ path = require('path')
 bookshelf = require('./bookshelf')
 bodyParser = require('body-parser')
 bcrypt = require('bcrypt-nodejs')
+env = process.env.NODE_ENV || 'development'
 
 users = []
 
@@ -100,4 +101,5 @@ io.on 'connection', (socket) ->
       io.emit('users', users)
 
 http.listen 8080, () ->
-  console.log 'listening on *:8080'
+  if env != 'test'
+    console.log 'listening on *:8080'
