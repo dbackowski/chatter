@@ -60,11 +60,14 @@ app.post '/login', (req, res) ->
   )
 
 app.get('/messages', (req, res) ->
-  new Message().query('orderBy', 'created_at', 'asc').fetchAll({ withRelated: ['user'] }).then((messages) ->
-    res.send(messages.toJSON())
-  ).catch((err) ->
-    res.send({ error: err })
-  )
+  if req.session.user
+    new Message().query('orderBy', 'created_at', 'asc').fetchAll({ withRelated: ['user'] }).then((messages) ->
+      res.send(messages.toJSON())
+    ).catch((err) ->
+      res.send({ error: err })
+    )
+  else
+    res.redirect '/login'
 )
 
 io.use (socket, next) ->

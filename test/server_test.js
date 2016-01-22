@@ -18,6 +18,15 @@ describe('Server', function() {
       });
     })
 
+    describe('GET /messages', function() {
+      it('should redirect to login form', function(done) {
+        api.get('/messages')
+          .expect(302)
+          .expect('Location', '/login')
+          .end(done);
+      });
+    })
+
     describe('GET /login', function() {
       it('should render login.html', function(done) {
         api.get('/login')
