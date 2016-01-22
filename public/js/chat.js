@@ -3,10 +3,6 @@ $(document).ready(function() {
 
   var socket = io.connect("http://127.0.0.1:8080", { reconnection: true, transports: ['websocket', 'xhr-polling', 'polling', 'htmlfile', 'flashsocket'] });
 
-  socket.on('connect', function() {
-    socket.emit('connected', { user: 'test' });
-  });
-
   var ChatApp = React.createClass({
     getInitialState: function() {
       socket.on('users', this.usersList);
