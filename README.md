@@ -1,4 +1,4 @@
-# Chatter
+# Chatter [![Build Status](https://travis-ci.org/dbackowski/chatter.svg?branch=master)](https://travis-ci.org/dbackowski/chatter)
 
 Very simple chat (NodeJS + PostgreSQL + Socket.io + React).
 

@@ -50,8 +50,6 @@ describe('Server', function() {
             Cookies = res.headers['set-cookie'].pop().split(';')[0];
             done();
          });
-
-      console.log('loguje');
     });
 
     describe('GET /messages', function() {
@@ -62,5 +60,5 @@ describe('Server', function() {
           .end(done);
       });
     });
-   });
+  });
 });
