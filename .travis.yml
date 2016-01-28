@@ -4,8 +4,7 @@ node_js:
   - "0.12"
 
 before_script:
-  npm install -g mocha
-  npm install -g coffee-script 
+  npm install -g mocha coffee-script
 
 script:
   npm test
