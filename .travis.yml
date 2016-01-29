@@ -8,7 +8,7 @@ addons:
 
 before_script:
   npm install -g mocha coffee-script
-  - psql -c 'create database chatter;' -U postgres
+  ; psql -c 'create database chatter;' -U postgres
 
 script:
   npm test
