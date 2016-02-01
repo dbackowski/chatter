@@ -7,8 +7,11 @@ addons:
   postgresql: "9.3"
 
 before_script:
-  npm install -g mocha coffee-script
+  npm install -g mocha coffee-script knex bower
+  bower install
   ; psql -c 'create database chatter;' -U postgres
+  knex migrate:latest
+  knex seed:run
 
 script:
   npm test
