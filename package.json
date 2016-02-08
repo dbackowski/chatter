@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "socket.io-client": "^1.4.5",
+    "socket.io-client-cookies-headers": "^0.3.0",
     "supertest": "^1.1.0"
   }
 }

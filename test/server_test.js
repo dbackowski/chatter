@@ -6,6 +6,8 @@ var supertest = require('supertest');
 var api = supertest('http://localhost:8080');
 var app = require('../server.coffee');
 var fs = require('fs');
+var newXhr = require('socket.io-client-cookies-headers');
+var io = require('socket.io-client');
 var Cookies;
 
 describe('Server', function() {
@@ -17,7 +19,7 @@ describe('Server', function() {
           .expect('Location', '/login')
           .end(done);
       });
-    })
+    });
 
     describe('GET /messages', function() {
       it('should redirect to login form', function(done) {
@@ -26,7 +28,7 @@ describe('Server', function() {
           .expect('Location', '/login')
           .end(done);
       });
-    })
+    });
 
     describe('GET /login', function() {
       it('should render login.html', function(done) {
@@ -38,7 +40,20 @@ describe('Server', function() {
             done();
           });
       });
-    })
+    });
+
+    describe('socket.io', function() {
+      describe('on connection', function() {
+        it('should throw error', function(done) {
+          var socket = io.connect('http://127.0.0.1:8080', { 'force new connection' : true });
+
+          socket.on('error', function (data) {
+            data.should.equal('Authentication error');
+            done();
+          });
+        });
+      });
+    });
   });
 
   describe('User logged in', function() {
@@ -54,10 +69,39 @@ describe('Server', function() {
 
     describe('GET /messages', function() {
       it('should return messages', function(done) {
-        var req = api.get('/messages')
+        var req = api.get('/messages');
+
         req.cookies = Cookies;
           req.expect(200)
           .end(done);
+      });
+    });
+
+    describe('socket.io', function() {
+      describe('on connection', function() {
+        it('should emit connected user on users channel', function(done) {
+          newXhr.setCookies(Cookies);
+          var socket = io.connect('http://127.0.0.1:8080', { 'force new connection' : true });
+
+          socket.on('users', function (data) {
+            data.should.deep.equal(new Array('test'));
+            done();
+          });
+        });
+      });
+
+      describe('on send message', function() {
+        it('should emit message on message channel', function(done) {
+          newXhr.setCookies(Cookies);
+          var socket = io.connect('http://127.0.0.1:8080', { 'force new connection' : true });
+
+          socket.emit('message', { message: 'this is test message' });
+
+          socket.on('message', function (data) {
+            data.body.should.equal('this is test message');
+            done();
+          });
+        });
       });
     });
   });
