@@ -5,7 +5,7 @@
   "main": "server.coffee",
   "scripts": {
     "start": "coffee server.coffee",
-    "test": "NODE_ENV=test mocha --compilers coffee:coffee-script/register"
+    "test": "NODE_ENV=test mocha --slow 200ms --compilers coffee:coffee-script/register"
   },
   "repository": {
     "type": "git",
