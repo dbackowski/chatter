@@ -1,7 +1,7 @@
 $(document).ready(function() {
   "use strict";
 
-  var socket = io.connect("http://127.0.0.1:8080", { reconnection: true, transports: ['websocket', 'xhr-polling', 'polling', 'htmlfile', 'flashsocket'] });
+  var socket = io.connect("http://localhost:8080", { reconnection: true, transports: ['websocket', 'xhr-polling', 'polling', 'htmlfile', 'flashsocket'] });
 
   var ChatApp = React.createClass({
     getInitialState: function() {

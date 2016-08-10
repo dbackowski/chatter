@@ -5,7 +5,7 @@
   "authors": [
     "Damian Baćkowski"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/dbackowski/chatter",
   "moduleType": [],
   "private": true,

@@ -2,7 +2,7 @@
 
 Very simple chat (NodeJS + PostgreSQL + Socket.io + React).
 
-![screenshot](http://i.imgur.com/VyLy4a8.png)
+![screenshot](http://i.imgur.com/RDddbxW.png)
 
 # Installation
 
@@ -39,3 +39,7 @@ Example users:
 
     login: test2
     password: test2
+
+## License
+
+Released under the MIT License.
