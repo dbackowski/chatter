@@ -8,10 +8,10 @@ Very simple chat (NodeJS + PostgreSQL + Socket.io + React).
 
 Install node modules:
 
-    npm install knex -g
-    npm install bower -g
-    npm install coffee-script -g
-    npm install
+    yarn add global knex 
+    yarn add global bower 
+    yarn add global coffee-script 
+    yarn
     bower install
 
 Create PostgreSQL database "chatter":
@@ -28,7 +28,7 @@ Seed database with example users:
 
 Start application:
     
-    npm start
+    yarn start
 
 Go to http://127.0.0.1:8080
 
