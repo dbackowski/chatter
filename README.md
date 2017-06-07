@@ -8,18 +8,18 @@ Very simple chat (NodeJS + PostgreSQL + Socket.io + React).
 
 Install node modules:
 
-    yarn add global knex 
-    yarn add global bower 
-    yarn add global coffee-script 
+    yarn global add knex
+    yarn global add bower
+    yarn global add coffee-script
     yarn
     bower install
 
 Create PostgreSQL database "chatter":
-    
+
     createdb -U postgres chatter
 
 Run knex migrations:
-    
+
     knex migrate:latest
 
 Seed database with example users:
@@ -27,7 +27,7 @@ Seed database with example users:
     knex seed:run
 
 Start application:
-    
+
     yarn start
 
 Go to http://127.0.0.1:8080
