@@ -13,4 +13,4 @@ before_script:
   - knex seed:run
 
 script:
-  npm test
+  yarn test
