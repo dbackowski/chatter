@@ -1,14 +1,13 @@
 language: node_js
 
 node_js:
-  - "4.2.6"
+  - "6"
 
 addons:
   postgresql: "9.3"
 
 before_script:
-  - npm install -g mocha coffee-script knex bower
-  - bower install
+  - yarn global add mocha coffee-script knex
   - psql -c 'create database chatter;' -U postgres
   - knex migrate:latest
   - knex seed:run

@@ -12,7 +12,6 @@ Install node modules:
     yarn global add bower
     yarn global add coffee-script
     yarn
-    bower install
 
 Create PostgreSQL database "chatter":
 
