@@ -1,30 +1,34 @@
 $(document).ready(function() {
   "use strict";
 
-  var ErrorMessage = React.createClass({
-    render: function() {
+  class ErrorMessage extends React.Component {
+    render() {
       return (
         <div className="alert alert-danger" role="alert">
           {this.props.message}
         </div>
       )
     }
-  });
+  }
 
-  var LoginForm = React.createClass({
-    getInitialState: function() {
-      return { login: "", password: "", error: "" }
-    },
+  class LoginForm extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { login: "", password: "", error: "" };
+      this.updateLogin = this.updateLogin.bind(this);
+      this.updatePassword = this.updatePassword.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
+    }
 
-    updateLogin: function(e) {
+    updateLogin(e) {
       this.setState({ login: e.target.value })
-    },
+    }
 
-    updatePassword: function(e) {
+    updatePassword(e) {
       this.setState({ password: e.target.value })
-    },
+    }
 
-    onSubmit: function(e) {
+    onSubmit(e) {
       e.preventDefault();
 
       var login = e.target.login.value.trim();
@@ -50,9 +54,9 @@ $(document).ready(function() {
           this.setState({ error: 'An error occured, unable to log in.'})
         }
       });
-    },
+    }
 
-    render: function() {
+    render() {
       return (
         <form className="form-signin" onSubmit={this.onSubmit}>
           { this.state.error ? <ErrorMessage message={this.state.error} /> : null }
@@ -67,7 +71,7 @@ $(document).ready(function() {
         </form>
       )
     }
-  });
+  }
 
   ReactDOM.render(<LoginForm />, document.getElementById('main'));
 });
