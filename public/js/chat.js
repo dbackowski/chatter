@@ -8,7 +8,7 @@ $(document).ready(function() {
     }
 
     componentDidMount() {
-      this.socket = io.connect("http://localhost:8080", { reconnection: true, transports: ['websocket', 'xhr-polling', 'polling', 'htmlfile', 'flashsocket'] });
+      this.socket = io();
       this.socket.on('users', this.usersList.bind(this));
       this.socket.on('message', this.messageReceive.bind(this));
       this.socket.on('connect_error', this.connectionError.bind(this));

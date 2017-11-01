@@ -23,6 +23,7 @@ html {
 }
 .message-input textarea {
   resize: none;
+  overflow: hidden;
 }
 .messages-list div#content {
   margin-bottom: 40px;
