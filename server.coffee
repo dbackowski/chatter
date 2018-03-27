@@ -22,7 +22,7 @@ User = bookshelf.Model.extend({
 
 Message = bookshelf.Model.extend({
   tableName: 'messages'
-  hasTimestamps: ['created_at']
+  hasTimestamps: true
   user: ->
     this.belongsTo(User, 'user_id')
 })
