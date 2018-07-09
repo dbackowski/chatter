@@ -514,8 +514,8 @@ express-session@^1.15.5:
     utils-merge "1.0.1"
 
 express-socket.io-session@^1.3.2:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/express-socket.io-session/-/express-socket.io-session-1.3.4.tgz#7c4a364aeeb73eef1062ca74f25217ee145ce260"
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/express-socket.io-session/-/express-socket.io-session-1.3.5.tgz#48fbec779388a2d8bbf91ddfec4e09c028c8407c"
   dependencies:
     cookie-parser "~1.3.3"
     crc "^3.3.0"
